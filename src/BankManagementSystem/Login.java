@@ -34,10 +34,31 @@ public class Login extends JFrame{
         //Create welcome text label
         JLabel text = new JLabel("Welcome to ATM");
 
+        //Change text font
+        text.setFont((new Font("Onward", Font.BOLD, 38)));
+
         //Set the position of text close to the logo(label)
-        text.setBounds(200, 40, 100, 40);
+        text.setBounds(200, 40, 400, 40);
+
         //display text
         add(text);
+
+        //Card Number Label
+        JLabel cardNum = new JLabel("Card No:");
+        cardNum.setFont((new Font("Rale way", Font.BOLD, 28)));
+        cardNum.setBounds(120, 150, 150, 40);
+        add(cardNum);
+
+        //Create Card Number Text Field
+        JTextField cardTextField = new JTextField();
+        cardTextField.setBounds();
+
+
+        //Pin number Label
+        JLabel pinNum = new JLabel("PIN:");
+        pinNum.setFont((new Font("Onward", Font.BOLD, 28)));
+        pinNum.setBounds(120, 220, 400, 40);
+        add(pinNum);
 
         //Get content pane for this frame and set background color
         getContentPane().setBackground(Color.WHITE);
