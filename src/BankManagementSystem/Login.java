@@ -2,9 +2,16 @@ package BankManagementSystem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-
-public class Login extends JFrame{
+//JFrame is a class that represents a window in a graphical user interface.
+//Login class inherits the properties of a JFrame, allowing you to create and customize a window for your application
+//ActionListener is an interface used for handling action events, such as button clicks
+public class Login extends JFrame implements ActionListener {
+    //Global variables
+    JButton login, clear, signup;
+    JTextField cardTextField;
+    JPasswordField pinTextField;
 
     Login() {
         //Set window title
@@ -46,19 +53,50 @@ public class Login extends JFrame{
         //Card Number Label
         JLabel cardNum = new JLabel("Card No:");
         cardNum.setFont((new Font("Rale way", Font.BOLD, 28)));
-        cardNum.setBounds(120, 150, 150, 40);
+        cardNum.setBounds(120, 150, 150, 30);
         add(cardNum);
 
-        //Create Card Number Text Field
-        JTextField cardTextField = new JTextField();
-        cardTextField.setBounds();
-
+        //Create Card Number Input Text Field
+        cardTextField = new JTextField();
+        cardTextField.setBounds(300, 150, 230, 30);
+        cardTextField.setFont(new Font("Arial", Font.BOLD, 14));
+        add(cardTextField);
 
         //Pin number Label
         JLabel pinNum = new JLabel("PIN:");
-        pinNum.setFont((new Font("Onward", Font.BOLD, 28)));
-        pinNum.setBounds(120, 220, 400, 40);
+        pinNum.setFont((new Font("Rale way", Font.BOLD, 28)));
+        pinNum.setBounds(120, 220, 250, 30);
         add(pinNum);
+
+        //Create PIN Input Text Field
+        pinTextField = new JPasswordField();
+        pinTextField.setBounds(300, 220, 230, 30);
+        pinTextField.setFont(new Font("Arial", Font.BOLD, 14));
+        add(pinTextField);
+
+        //Create log in button
+        login = new JButton("LOG IN");
+        login.setBounds(300, 300, 100, 30);
+        login.setBackground(Color.BLACK);
+        login.setForeground(Color.WHITE);
+        login.addActionListener(this);
+        add(login);
+
+        //Create button to clear text
+        clear = new JButton("CLEAR");
+        clear.setBounds(430, 300, 100, 30);
+        clear.setBackground(Color.BLACK);
+        clear.setForeground(Color.WHITE);
+        clear.addActionListener(this);
+        add(clear);
+
+        //Create sign up button
+        signup = new JButton("SIGN IN");
+        signup.setBounds(300, 350, 230, 30);
+        signup.setBackground(Color.BLACK);
+        signup.setForeground(Color.WHITE);
+        signup.addActionListener(this);
+        add(signup);
 
         //Get content pane for this frame and set background color
         getContentPane().setBackground(Color.WHITE);
@@ -69,6 +107,22 @@ public class Login extends JFrame{
         //Set window position to middle of the screen
         setLocation(350, 200);
 
+
+    }
+
+    //When a login implements ActionListener, it must provide an implementation for the actionPerformed method,
+    // which is called when an action event occurs.
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == clear) {
+            cardTextField.setText("");
+            pinTextField.setText("");
+        }
+        else if (ae.getSource() == login) {
+
+        }
+        else if (ae.getSource() == signup) {
+
+        }
 
     }
 
