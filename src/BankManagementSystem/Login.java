@@ -110,7 +110,7 @@ public class Login extends JFrame implements ActionListener {
 
     }
 
-    //When a login implements ActionListener, it must provide an implementation for the actionPerformed method,
+    //When login class implements ActionListener, it must provide an implementation for the actionPerformed method,
     // which is called when an action event occurs.
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == clear) {
