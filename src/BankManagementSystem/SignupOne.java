@@ -1,9 +1,10 @@
 package BankManagementSystem;
 
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
-//import com.toedter.calendar.JCalender;
+import java.util.Random;
 
 
 
@@ -63,11 +64,34 @@ public class SignupOne  extends JFrame {
         dob.setBounds(100, 240, 200, 30);
         add(dob);
 
+        //This third-party library creates component to allow users to pick a date
+        JDateChooser dateChooser = new JDateChooser();
+        dateChooser.setForeground(new Color(105, 105, 105));
+        dateChooser.setBounds(300, 240, 400, 30);
+        add(dateChooser);
+
         //Create a label for gender field
         JLabel gender = new JLabel("Gender:");
         gender.setFont(new Font("Rale way", Font.BOLD, 20));
         gender.setBounds(100, 290, 200, 30);
         add(gender);
+
+        //Create radio button component for gender
+        JRadioButton male = new JRadioButton("Male");
+        male.setBounds(300, 290, 60, 30);
+        male.setBackground(Color.WHITE);
+        add(male);
+
+        JRadioButton female = new JRadioButton("Female");
+        female.setBounds(450, 290, 120, 30);
+        female.setBackground(Color.WHITE);
+        add(female);
+
+        //Group the radio buttons together using a ButtonGroup so that only one can be selected at a time
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(male);
+        genderGroup.add(female);
+
 
         //Create a label for email field
         JLabel email = new JLabel("Email Address:");
@@ -86,6 +110,28 @@ public class SignupOne  extends JFrame {
         marital.setFont(new Font("Rale way", Font.BOLD, 20));
         marital.setBounds(100, 390, 200, 30);
         add(marital);
+
+        //Create radio button components for marital status
+        JRadioButton married = new JRadioButton("Married");
+        married.setBounds(300, 390, 100, 30);
+        married.setBackground(Color.WHITE);
+        add(married);
+
+        JRadioButton unmarried = new JRadioButton("Unmarried");
+        unmarried.setBounds(450, 390, 100, 30);
+        unmarried.setBackground(Color.WHITE);
+        add(unmarried);
+
+        JRadioButton other = new JRadioButton("Other");
+        other.setBounds(630, 390, 100, 30);
+        other.setBackground(Color.WHITE);
+        add(other);
+
+        //Group the radio buttons together using a ButtonGroup so that only one can be selected at a time
+        ButtonGroup maritalGroup = new ButtonGroup();
+        maritalGroup.add(married);
+        maritalGroup.add(unmarried);
+        maritalGroup.add(other);
 
         //Create a label for address field
         JLabel address = new JLabel("Address:");
@@ -135,7 +181,13 @@ public class SignupOne  extends JFrame {
         pinTextField.setBounds(300, 590, 400, 30);
         add(pinTextField);
 
-
+        //Create next button
+        JButton nextBtn = new JButton("Next");
+        nextBtn.setBackground(Color.BLACK);
+        nextBtn.setForeground(Color.WHITE);
+        nextBtn.setFont(new Font("Rale way", Font.BOLD, 14));
+        nextBtn.setBounds(620, 660, 80, 30);
+        add(nextBtn);
 
         getContentPane().setBackground(Color.WHITE);
         setSize(850, 800);
