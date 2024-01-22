@@ -21,7 +21,7 @@ public class Login extends JFrame implements ActionListener {
         setLayout(null);
 
         //Image icon class loads an image file named "logo.jpg" from a directory named "icons." The ClassLoader is a mechanism in Java for dynamically loading classes and resources
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/logo.jpg"));
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png"));
 
         //Get the Image object from the previously created ImageIcon(i1) then scaling the image to a size of 100x100 pixels using getScaledInstance
         Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
@@ -33,7 +33,7 @@ public class Login extends JFrame implements ActionListener {
         JLabel label = new JLabel(i3);
 
         //Setting the position(x, y) and size(width, height)of the JLabel
-        label.setBounds(70, 10, 100, 100);
+        label.setBounds(150, 10, 100, 100);
 
         //method used to add JLabel component to the JFrame container
         add(label);
@@ -45,7 +45,7 @@ public class Login extends JFrame implements ActionListener {
         text.setFont((new Font("Onward", Font.BOLD, 38)));
 
         //Set the position of text close to the logo(label)
-        text.setBounds(200, 40, 400, 40);
+        text.setBounds(270, 40, 400, 40);
 
         //display text
         add(text);
@@ -99,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
         add(signup);
 
         //Get content pane for this frame and set background color
-        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(new Color(243,241,241));
         //Set window size
         setSize(800, 480);
         //Set window visibly to true
@@ -118,9 +118,13 @@ public class Login extends JFrame implements ActionListener {
             pinTextField.setText("");
         }
         else if (ae.getSource() == login) {
+            String cardNo = cardTextField.getText();
+            //String pinNo = pinTextField;
 
         }
         else if (ae.getSource() == signup) {
+            setVisible(false);
+            new SignupOne().setVisible(true);
 
         }
 

@@ -4,15 +4,21 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Random;
 
 
+//Add ActionListener for handling action events "nextBtn" button click
+public class SignupOne extends JFrame implements ActionListener {
 
-public class SignupOne  extends JFrame {
-
+    long random;
+    JTextField nameTextField, fatherNameTextField, emailTextField, addressTextField, cityTextField, stateTextField, pinTextField;
+    JButton nextBtn;
+    JRadioButton male, female, other, married, unmarried;
+    JDateChooser dateChooser;
     SignupOne() {
         //Set window title
-        //setTitle("Automated Teller Machine");
+        setTitle("Personal Information");
 
 
         //method sets the layout manager of a container to null, you have complete control over the size and position of each component within the container
@@ -20,7 +26,7 @@ public class SignupOne  extends JFrame {
 
         //Generates a random long value that is between 1000 and 9999 (inclusive) and ensure that the result is non-negative
         Random ran = new Random();
-        long random = Math.abs((ran.nextLong() % 9000L) + 1000L);
+        random = Math.abs((ran.nextLong() % 9000L) + 1000L);
 
         //Create a label for the form title
         JLabel formNum = new JLabel("APPLICATION FORM NO." + random);
@@ -41,7 +47,7 @@ public class SignupOne  extends JFrame {
         add(name);
 
         //Create name input text field
-        JTextField nameTextField = new JTextField();
+        nameTextField = new JTextField();
         nameTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         nameTextField.setBounds(300, 140, 400, 30);
         add(nameTextField);
@@ -53,7 +59,7 @@ public class SignupOne  extends JFrame {
         add(fatherName);
 
         //Create father name input text field
-        JTextField fatherNameTextField = new JTextField();
+        fatherNameTextField = new JTextField();
         fatherNameTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         fatherNameTextField.setBounds(300, 190, 400, 30);
         add(fatherNameTextField);
@@ -65,7 +71,7 @@ public class SignupOne  extends JFrame {
         add(dob);
 
         //This third-party library creates component to allow users to pick a date
-        JDateChooser dateChooser = new JDateChooser();
+        dateChooser = new JDateChooser();
         dateChooser.setForeground(new Color(105, 105, 105));
         dateChooser.setBounds(300, 240, 400, 30);
         add(dateChooser);
@@ -77,21 +83,20 @@ public class SignupOne  extends JFrame {
         add(gender);
 
         //Create radio button component for gender
-        JRadioButton male = new JRadioButton("Male");
+        male = new JRadioButton("Male");
         male.setBounds(300, 290, 60, 30);
-        male.setBackground(Color.WHITE);
+        male.setBackground(new Color(243,241,241));
         add(male);
 
-        JRadioButton female = new JRadioButton("Female");
+        female = new JRadioButton("Female");
         female.setBounds(450, 290, 120, 30);
-        female.setBackground(Color.WHITE);
+        female.setBackground(new Color(243,241,241));
         add(female);
 
         //Group the radio buttons together using a ButtonGroup so that only one can be selected at a time
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(male);
         genderGroup.add(female);
-
 
         //Create a label for email field
         JLabel email = new JLabel("Email Address:");
@@ -100,7 +105,7 @@ public class SignupOne  extends JFrame {
         add(email);
 
         //Create email input text field
-        JTextField emailTextField = new JTextField();
+        emailTextField = new JTextField();
         emailTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         emailTextField.setBounds(300, 340, 400, 30);
         add(emailTextField);
@@ -112,19 +117,19 @@ public class SignupOne  extends JFrame {
         add(marital);
 
         //Create radio button components for marital status
-        JRadioButton married = new JRadioButton("Married");
+        married = new JRadioButton("Married");
         married.setBounds(300, 390, 100, 30);
-        married.setBackground(Color.WHITE);
+        married.setBackground(new Color(243,241,241));
         add(married);
 
-        JRadioButton unmarried = new JRadioButton("Unmarried");
+        unmarried = new JRadioButton("Unmarried");
         unmarried.setBounds(450, 390, 100, 30);
-        unmarried.setBackground(Color.WHITE);
+        unmarried.setBackground(new Color(243,241,241));
         add(unmarried);
 
-        JRadioButton other = new JRadioButton("Other");
+        other = new JRadioButton("Other");
         other.setBounds(630, 390, 100, 30);
-        other.setBackground(Color.WHITE);
+        other.setBackground(new Color(243,241,241));
         add(other);
 
         //Group the radio buttons together using a ButtonGroup so that only one can be selected at a time
@@ -140,7 +145,7 @@ public class SignupOne  extends JFrame {
         add(address);
 
         //Create address input text field
-        JTextField addressTextField = new JTextField();
+        addressTextField = new JTextField();
         addressTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         addressTextField.setBounds(300, 440, 400, 30);
         add(addressTextField);
@@ -152,7 +157,7 @@ public class SignupOne  extends JFrame {
         add(city);
 
         //Create city input text field
-        JTextField cityTextField = new JTextField();
+        cityTextField = new JTextField();
         cityTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         cityTextField.setBounds(300, 490, 400, 30);
         add(cityTextField);
@@ -164,7 +169,7 @@ public class SignupOne  extends JFrame {
         add(state);
 
         //Create state input text field
-        JTextField stateTextField = new JTextField();
+        stateTextField = new JTextField();
         stateTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         stateTextField.setBounds(300, 540, 400, 30);
         add(stateTextField);
@@ -176,23 +181,70 @@ public class SignupOne  extends JFrame {
         add(pin);
 
         //Create pin input text field
-        JTextField pinTextField = new JTextField();
+        pinTextField = new JTextField();
         pinTextField.setFont(new Font("Rale way", Font.BOLD, 14));
         pinTextField.setBounds(300, 590, 400, 30);
         add(pinTextField);
 
         //Create next button
-        JButton nextBtn = new JButton("Next");
+        nextBtn = new JButton("Next");
         nextBtn.setBackground(Color.BLACK);
         nextBtn.setForeground(Color.WHITE);
         nextBtn.setFont(new Font("Rale way", Font.BOLD, 14));
         nextBtn.setBounds(620, 660, 80, 30);
+        nextBtn.addActionListener(this);
         add(nextBtn);
 
-        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(new Color(243,241,241));
         setSize(850, 800);
         setLocation(350, 10);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        String formno = "" + random;
+        String name = nameTextField.getText();
+        String fname = fatherNameTextField.getText();
+        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String gender = null;
+        if (male.isSelected()) {
+            gender = "male";
+        }
+        else if (female.isSelected()) {
+            gender = "female";
+        }
+        String email = emailTextField.getText();
+        String marital = null;
+        if (married.isSelected()) {
+            marital = "married";
+        }
+        else if (unmarried.isSelected()) {
+            marital = "unmarried";
+        }
+        else if (other.isSelected()) {
+            marital = "other";
+        }
+        String address = addressTextField.getText();
+        String city = cityTextField.getText();
+        String state = stateTextField.getText();
+        String pin = pinTextField.getText();
+
+        try {
+            if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Name is required!");
+
+            }
+            else {
+                Connect c = new Connect();
+                String query = "INSERT INTO signup (formno, name, father_name, dob, gender, marital_status, address, city, state, pincode)" +
+                                "VALUES ('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+marital+"', '"+address+"', '"+city+"', '"+state+"', '"+pin+"')";
+                c.s.executeUpdate(query);
+
+
+            }
+        } catch ( Exception e) {
+            System.out.println(e);
+        }
 
     }
     public static void main(String[] args) {
