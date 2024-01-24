@@ -202,10 +202,14 @@ public class SignupOne extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
+        // Generate a unique form number (assuming 'random' is predefined)
         String formno = "" + random;
+        // Extract user input from text fields
         String name = nameTextField.getText();
         String fname = fatherNameTextField.getText();
+        // Extract date of birth from a date chooser component
         String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        // Determine the selected gender
         String gender = null;
         if (male.isSelected()) {
             gender = "male";
@@ -213,6 +217,7 @@ public class SignupOne extends JFrame implements ActionListener {
         else if (female.isSelected()) {
             gender = "female";
         }
+        // Extract email, marital status, and other details
         String email = emailTextField.getText();
         String marital = null;
         if (married.isSelected()) {
@@ -224,28 +229,32 @@ public class SignupOne extends JFrame implements ActionListener {
         else if (other.isSelected()) {
             marital = "other";
         }
+        // Extract address, city, state, and PIN code
         String address = addressTextField.getText();
         String city = cityTextField.getText();
         String state = stateTextField.getText();
         String pin = pinTextField.getText();
 
         try {
+            // Validate that the 'name' field is not empty
             if (name.isEmpty()) {
+                // It will display a message dialog with the specified message ("Name is required!").
                 JOptionPane.showMessageDialog(null, "Name is required!");
 
             }
             else {
+                // Establish a database connection
                 Connect c = new Connect();
-                String query = "INSERT INTO signup (formno, name, father_name, dob, gender, marital_status, address, city, state, pincode)" +
-                                "VALUES ('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+marital+"', '"+address+"', '"+city+"', '"+state+"', '"+pin+"')";
+                // Construct and execute the SQL query to insert data into the 'signup' table
+                String query = "INSERT INTO signup (formno, name, father_name, dob, gender, email, marital_status, address, city, state, pincode)" +
+                                "VALUES ('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+state+"', '"+pin+"')";
+                // Execute the query
                 c.s.executeUpdate(query);
-
-
             }
         } catch ( Exception e) {
+            // Handle any exceptions that might occur during database interaction
             System.out.println(e);
         }
-
     }
     public static void main(String[] args) {
         new SignupOne();
