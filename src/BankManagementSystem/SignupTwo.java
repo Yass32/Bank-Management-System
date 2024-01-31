@@ -4,29 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+
 
 public class SignupTwo extends JFrame implements ActionListener {
 
-    long random;
+    String formno;
     JComboBox<String> religionDropDown, categoryDropDown, incomeDropDown, educationDropDown, occupationDropDown;
     JTextField sSecurityTextField;
     JRadioButton yes, no, yes1, no1;
     JButton nextBtn;
 
-    SignupTwo() {
+
+    SignupTwo(String formno) {
         //Set window title
         setTitle("Personal Information 2");
 
         //method sets the layout manager of a container to null, you have complete control over the size and position of each component within the container
         setLayout(null);
 
-        //Generates a random long value that is between 1000 and 9999 (inclusive) and ensure that the result is non-negative
-        Random ran = new Random();
-        random = Math.abs((ran.nextLong() % 9000L) + 1000L);
+        this.formno = formno;
 
         //Create a label for the form title
-        JLabel formNum = new JLabel("APPLICATION FORM NO." + random);
+        JLabel formNum = new JLabel("APPLICATION FORM NO." + this.formno);
         formNum.setFont(new Font("Rale way", Font.BOLD, 38));
         formNum.setBounds(140, 20, 600, 40);
         add(formNum);
@@ -166,7 +165,7 @@ public class SignupTwo extends JFrame implements ActionListener {
         nextBtn.setForeground(Color.WHITE);
         nextBtn.setFont(new Font("Rale way", Font.BOLD, 14));
         nextBtn.setBounds(620, 660, 80, 30);
-        //nextBtn.addActionListener(this);
+        nextBtn.addActionListener(this);
         add(nextBtn);
 
         getContentPane().setBackground(new Color(243,241,241));
@@ -176,7 +175,6 @@ public class SignupTwo extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        String formno = "" + random;
         String religion = (String) religionDropDown.getSelectedItem();
         String category =  (String) categoryDropDown.getSelectedItem();
         String income =  (String) incomeDropDown.getSelectedItem();
@@ -190,16 +188,51 @@ public class SignupTwo extends JFrame implements ActionListener {
         else if (no.isSelected()) {
             seniorCitizen = "no";
         }
-        String ExistAccount = null;
+        String existAccount = null;
         if (yes1.isSelected()) {
-            ExistAccount = "yes";
+            existAccount = "yes";
         }
         else if (no1.isSelected()) {
-            ExistAccount = "no";
+            existAccount = "no";
+        }
+
+        try {
+            // Establish a database connection
+            Connect c = new Connect();
+            // Construct and execute the SQL query to insert data into the 'signuptwo' table
+            String query = "INSERT INTO signuptwo (formno, religion, category, income, education, occupation, socialNum, seniorCitizen, existAccount)" +
+                    "VALUES ('"+formno+"', '"+religion+"', '"+category+"', '"+income+"', '"+education+"', '"+occupation+"', '"+socialNum+"', '"+seniorCitizen+"', '"+existAccount+"')";
+            // Execute the query
+            c.s.executeUpdate(query);
+
+            //Sign up 3 object
+            //Go to next page
+            //setVisible(false);
+            //new SignupTwo(formno).setVisible(true);
+
+
+        }
+        catch (Exception e) {
+            System.out.println(e);
         }
     }
 
+
+
     public static void main(String[] args) {
-        new SignupTwo();
+        new SignupTwo("").setVisible(true);
     }
+
+    /*
+    * CREATE TABLE signuptwo (
+    formno TEXT PRIMARY,
+    religion TEXT,
+    category TEXT,
+    income TEXT,
+    education TEXT,
+    occupation TEXT,
+    socialNum TEXT,
+    seniorCitizen TEXT,
+    existAccount TEXT
+)*/
 }

@@ -4,14 +4,17 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 
 //Add ActionListener for handling action events "nextBtn" button click
 public class SignupOne extends JFrame implements ActionListener {
 
-    long random;
+    //Generates a random long value that is between 1000 and 9999 (inclusive) and ensure that the result is non-negative
+    Random ran = new Random();
+    String random = "" + Math.abs((ran.nextLong() % 9000L) + 1000L);
     JTextField nameTextField, fatherNameTextField, emailTextField, addressTextField, cityTextField, stateTextField, pinTextField;
     JButton nextBtn;
     JRadioButton male, female, other, married, unmarried;
@@ -23,10 +26,6 @@ public class SignupOne extends JFrame implements ActionListener {
 
         //method sets the layout manager of a container to null, you have complete control over the size and position of each component within the container
         setLayout(null);
-
-        //Generates a random long value that is between 1000 and 9999 (inclusive) and ensure that the result is non-negative
-        Random ran = new Random();
-        random = Math.abs((ran.nextLong() % 9000L) + 1000L);
 
         //Create a label for the form title
         JLabel formNum = new JLabel("APPLICATION FORM NO." + random);
@@ -203,7 +202,7 @@ public class SignupOne extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         // Generate a unique form number (assuming 'random' is predefined)
-        String formno = "" + random;
+        String formno = random;
         // Extract user input from text fields
         String name = nameTextField.getText();
         String fname = fatherNameTextField.getText();
@@ -250,13 +249,35 @@ public class SignupOne extends JFrame implements ActionListener {
                                 "VALUES ('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+state+"', '"+pin+"')";
                 // Execute the query
                 c.s.executeUpdate(query);
+
+                //Go to next page
+                setVisible(false);
+                new SignupTwo(random).setVisible(true);
+
             }
         } catch ( Exception e) {
             // Handle any exceptions that might occur during database interaction
             System.out.println(e);
         }
     }
+
     public static void main(String[] args) {
-        new SignupOne();
+        new SignupOne().setVisible(true);
     }
+
+    /*
+    CREATE TABLE signup (
+    formno TEXT,
+    name TEXT,
+    father_name TEXT,
+    dob TEXT,
+    gender TEXT,
+    email TEXT,
+    marital_status TEXT,
+    address TEXT,
+    city TEXT,
+    state TEXT,
+    pincode TEXT
+);
+*/
 }
