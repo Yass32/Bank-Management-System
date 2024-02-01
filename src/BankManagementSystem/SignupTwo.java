@@ -24,11 +24,15 @@ public class SignupTwo extends JFrame implements ActionListener {
 
         this.formno = formno;
 
+        /*
+
         //Create a label for the form title
         JLabel formNum = new JLabel("APPLICATION FORM NO." + this.formno);
         formNum.setFont(new Font("Rale way", Font.BOLD, 38));
         formNum.setBounds(140, 20, 600, 40);
         add(formNum);
+
+         */
 
         JLabel additionalDetails = new JLabel("Page 2: Additional Details");
         additionalDetails.setFont(new Font("Rale way", Font.BOLD, 22));
