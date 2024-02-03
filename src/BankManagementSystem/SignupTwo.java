@@ -39,12 +39,12 @@ public class SignupTwo extends JFrame implements ActionListener {
         additionalDetails.setBounds(290, 80, 400, 30);
         add(additionalDetails);
 
+        // Labels and dropdowns for religion, category, income, education, and occupation
         JLabel religion = new JLabel("Religion:");
         religion.setFont(new Font("Rale way", Font.BOLD, 20));
         religion.setBounds(100, 140, 100, 30);
         add(religion);
 
-        //Create name input text field
         String[] religionOptions = {"Islam", "Christianity", "Judaism"};
         religionDropDown = new JComboBox<>(religionOptions);
         religionDropDown.setFont(new Font("Rale way", Font.BOLD, 14));
@@ -52,13 +52,11 @@ public class SignupTwo extends JFrame implements ActionListener {
         religionDropDown.setBounds(300, 140, 400, 30);
         add(religionDropDown);
 
-        //Create a label for father name field
         JLabel Category = new JLabel("Category:");
         Category.setFont(new Font("Rale way", Font.BOLD, 20));
         Category.setBounds(100, 190, 200, 30);
         add(Category);
 
-        //Create father name input text field
         String[] categoryOptions = {"Savings Account", "Checking Account", "Business Account"};
         categoryDropDown = new JComboBox<>(categoryOptions);
         categoryDropDown.setFont(new Font("Rale way", Font.BOLD, 14));
@@ -66,13 +64,11 @@ public class SignupTwo extends JFrame implements ActionListener {
         categoryDropDown.setBounds(300, 190, 400, 30);
         add(categoryDropDown);
 
-        //Create a label for the date of birth field
         JLabel Income = new JLabel("Income:");
         Income.setFont(new Font("Rale way", Font.BOLD, 20));
         Income.setBounds(100, 240, 200, 30);
         add(Income);
 
-        //This third-party library creates component to allow users to pick a date
         String[] incomeOptions = {"Null", "<50,000", "<100,000"};
         incomeDropDown = new JComboBox<>(incomeOptions);
         incomeDropDown.setFont(new Font("Rale way", Font.BOLD, 14));
@@ -80,13 +76,11 @@ public class SignupTwo extends JFrame implements ActionListener {
         incomeDropDown.setBounds(300, 240, 400, 30);
         add(incomeDropDown);
 
-        //Create a label for gender field
         JLabel education = new JLabel("Education:");
         education.setFont(new Font("Rale way", Font.BOLD, 20));
         education.setBounds(100, 290, 200, 30);
         add(education);
 
-        //Create radio button component for gender
         String[] educationOptions = {"High School", "Undergraduate", "Graduate"};
         educationDropDown = new JComboBox<>(educationOptions);
         educationDropDown.setFont(new Font("Rale way", Font.BOLD, 14));
@@ -94,13 +88,11 @@ public class SignupTwo extends JFrame implements ActionListener {
         educationDropDown.setBounds(300, 290, 400, 30);
         add(educationDropDown);
 
-        //Create a label for email field
         JLabel occupation = new JLabel("Occupation:");
         occupation.setFont(new Font("Rale way", Font.BOLD, 20));
         occupation.setBounds(100, 340, 200, 30);
         add(occupation);
 
-        //Create email input text field
         String[] occupationOptions = {"Student", "Employed", "Unemployed"};
         occupationDropDown = new JComboBox<>(occupationOptions);
         occupationDropDown.setFont(new Font("Rale way", Font.BOLD, 14));
@@ -108,7 +100,7 @@ public class SignupTwo extends JFrame implements ActionListener {
         occupationDropDown.setBounds(300, 340, 400, 30);
         add(occupationDropDown);
 
-        //Create a label for marital status field
+        // Text field for social security number
         JLabel socialSecurity = new JLabel("Social Number:");
         socialSecurity.setFont(new Font("Rale way", Font.BOLD, 20));
         socialSecurity.setBounds(100, 390, 200, 30);
@@ -120,6 +112,7 @@ public class SignupTwo extends JFrame implements ActionListener {
         sSecurityTextField.setBounds(300, 390, 400, 30);
         add(sSecurityTextField);
 
+        // Radio buttons for senior citizen and existing account
         JLabel seniorCitizen = new JLabel("Senior Citizen:");
         seniorCitizen.setFont(new Font("Rale way", Font.BOLD, 20));
         seniorCitizen.setBounds(100, 440, 200, 30);
@@ -163,7 +156,7 @@ public class SignupTwo extends JFrame implements ActionListener {
         eAGroup.add(yes1);
         eAGroup.add(no1);
 
-        //Create next button
+        //Create next button to proceed to the next page
         nextBtn = new JButton("Next");
         nextBtn.setBackground(Color.BLACK);
         nextBtn.setForeground(Color.WHITE);
@@ -172,13 +165,16 @@ public class SignupTwo extends JFrame implements ActionListener {
         nextBtn.addActionListener(this);
         add(nextBtn);
 
+        // Set background color, size, and visibility
         getContentPane().setBackground(new Color(243,241,241));
         setSize(850, 800);
         setLocation(350, 10);
         setVisible(true);
     }
 
+    // ActionListener implementation for handling button click
     public void actionPerformed(ActionEvent ae) {
+        // Retrieve values from dropdowns, text fields, and radio buttons
         String religion = (String) religionDropDown.getSelectedItem();
         String category =  (String) categoryDropDown.getSelectedItem();
         String income =  (String) incomeDropDown.getSelectedItem();
@@ -203,13 +199,15 @@ public class SignupTwo extends JFrame implements ActionListener {
         try {
             // Establish a database connection
             Connect c = new Connect();
+
             // Construct and execute the SQL query to insert data into the 'signuptwo' table
             String query = "INSERT INTO signuptwo (formno, religion, category, income, education, occupation, socialNum, seniorCitizen, existAccount)" +
                     "VALUES ('"+formno+"', '"+religion+"', '"+category+"', '"+income+"', '"+education+"', '"+occupation+"', '"+socialNum+"', '"+seniorCitizen+"', '"+existAccount+"')";
+
             // Execute the query
             c.s.executeUpdate(query);
 
-            //Sign up 3 object Go to next page
+            //Sign up 3 object, go to the next page
             setVisible(false);
             new SignupThree(formno).setVisible(true);
 
@@ -226,6 +224,7 @@ public class SignupTwo extends JFrame implements ActionListener {
         new SignupTwo("").setVisible(true);
     }
 
+    // Database table creation query (commented out for reference)
     /*
     * CREATE TABLE signuptwo (
     formno TEXT PRIMARY,
