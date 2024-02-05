@@ -2,9 +2,14 @@ package BankManagementSystem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Transactions extends JFrame{
-    Transactions() {
+public class Transactions extends JFrame implements ActionListener {
+    JButton deposit, fastCash, pinChange, cashWithdrawal, miniStatement, balanceEnquiry, exit;
+    String pinNo;
+    Transactions( String pinNo) {
+        this.pinNo = pinNo;
         //Set window title
         setTitle("Main Transaction");
 
@@ -24,32 +29,39 @@ public class Transactions extends JFrame{
         text.setFont(new Font("System", Font.BOLD, 16));
         backgroundImage.add(text);
 
-        JButton deposit = new JButton("Deposit");
+        deposit = new JButton("Deposit");
         deposit.setBounds(160, 415, 150, 30);
+        deposit.addActionListener(this);
         backgroundImage.add(deposit);
 
-        JButton fastCash = new JButton("Fast Cash");
+        fastCash = new JButton("Fast Cash");
         fastCash.setBounds(160, 450, 150, 30);
+        fastCash.addActionListener(this);
         backgroundImage.add(fastCash);
 
-        JButton pinChange = new JButton("Pin Change");
+        pinChange = new JButton("Pin Change");
         pinChange.setBounds(160, 485, 150, 30);
+        pinChange.addActionListener(this);
         backgroundImage.add(pinChange);
 
-        JButton cashWithdrawal = new JButton("Cash Withdrawal");
+        cashWithdrawal = new JButton("Cash Withdrawal");
         cashWithdrawal.setBounds(362, 415, 150, 30);
+        cashWithdrawal.addActionListener(this);
         backgroundImage.add(cashWithdrawal);
 
-        JButton miniStatement = new JButton("Mini Statement");
+        miniStatement = new JButton("Mini Statement");
         miniStatement.setBounds(362, 450, 150, 30);
+        miniStatement.addActionListener(this);
         backgroundImage.add(miniStatement);
 
-        JButton balanceEnquiry = new JButton("Balance Enquiry");
+        balanceEnquiry = new JButton("Balance Enquiry");
         balanceEnquiry.setBounds(362, 485, 150, 30);
+        balanceEnquiry.addActionListener(this);
         backgroundImage.add(balanceEnquiry);
 
-        JButton exit = new JButton("Exit");
+        exit = new JButton("Exit");
         exit.setBounds(362, 520, 150, 30);
+        exit.addActionListener(this);
         backgroundImage.add(exit);
 
 
@@ -64,7 +76,13 @@ public class Transactions extends JFrame{
         //setUndecorated(true);
     }
 
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == exit) {
+            System.exit(0);
+        }
+    }
+
     public static void main(String[] args) {
-        new Transactions();
+        new Transactions("");
     }
 }

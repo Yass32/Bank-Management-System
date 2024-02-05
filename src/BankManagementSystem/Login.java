@@ -2,7 +2,10 @@ package BankManagementSystem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //JFrame is a class that represents a window in a graphical user interface.
 //Login class inherits the properties of a JFrame, allowing you to create and customize a window for your application
@@ -91,7 +94,7 @@ public class Login extends JFrame implements ActionListener {
         add(clear);
 
         //Create sign up button
-        signup = new JButton("SIGN IN");
+        signup = new JButton("SIGN UP");
         signup.setBounds(300, 350, 230, 30);
         signup.setBackground(Color.BLACK);
         signup.setForeground(Color.WHITE);
@@ -118,8 +121,23 @@ public class Login extends JFrame implements ActionListener {
             pinTextField.setText("");
         }
         else if (ae.getSource() == login) {
-            //String cardNo = cardTextField.getText();
-            //String pinNo = pinTextField;
+            Connect c = new Connect();
+            String cardNo = cardTextField.getText();
+            String pinNo = pinTextField.getText();
+            String query = "SELECT * FROM login WHERE cardNumber = '"+cardNo+"' AND pinNumber = '"+pinNo+"'";
+
+            try {
+                ResultSet rs = c.s.executeQuery(query);
+                if (rs.next()) {
+                    setVisible(false);
+                    new Transactions(pinNo).setVisible(true);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Card Number or Pin Number");
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
 
         }
         else if (ae.getSource() == signup) {
