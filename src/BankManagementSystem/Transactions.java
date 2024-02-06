@@ -11,7 +11,7 @@ public class Transactions extends JFrame implements ActionListener {
     Transactions( String pinNo) {
         this.pinNo = pinNo;
         //Set window title
-        setTitle("Main Transaction");
+        setTitle("Main Transactions");
 
         //method sets the layout manager of a container to null, you have complete control over the size and position of each component within the container
         setLayout(null);
@@ -65,8 +65,6 @@ public class Transactions extends JFrame implements ActionListener {
         backgroundImage.add(exit);
 
 
-        //Get content pane for this frame and set background color
-        //getContentPane().setBackground(new Color(243,241,241));
         //Set window size
         setSize(900, 900);
         //Set window visibly to true
@@ -79,6 +77,10 @@ public class Transactions extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == exit) {
             System.exit(0);
+        }
+        else if (ae.getSource() == deposit) {
+            setVisible(false);
+            new Deposit(pinNo).setVisible(true);
         }
     }
 
