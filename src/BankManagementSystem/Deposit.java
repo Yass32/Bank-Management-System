@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class Deposit extends JFrame implements ActionListener {
 
@@ -61,9 +62,30 @@ public class Deposit extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == deposit) {
+            String number = amount.getText();
+            Date date = new Date();
+            if (number.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter the amount you want to deposit");
+            }
+            else {
+                try {
+                    Connect c = new Connect();
+                    String query = "INSERT INTO bank (pinNumber, date, type, amount)" +
+                            "VALUES ('"+pinNo+"', '"+date+"', 'Deposit', '"+number+"')";
+                    // Execute the query
+                    c.s.executeUpdate(query);
+                    JOptionPane.showMessageDialog(null, "$ " + number + " was Deposited Successfully");
+                    setVisible(false);
+                    new Transactions(pinNo).setVisible(true);
+                }
+                catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
 
         }
         else if (ae.getSource() == back) {
+            setVisible(false);
             new Transactions(pinNo).setVisible(true);
 
         }
