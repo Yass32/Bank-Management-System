@@ -82,7 +82,6 @@ public class Deposit extends JFrame implements ActionListener {
                     System.out.println(e);
                 }
             }
-
         }
         else if (ae.getSource() == back) {
             setVisible(false);
