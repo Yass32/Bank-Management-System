@@ -15,7 +15,7 @@ public class Withdrawal extends JFrame implements ActionListener {
     Withdrawal(String pinNo) {
         this.pinNo = pinNo;
         //Set window title
-        setTitle("Deposit");
+        setTitle("Withdraw");
 
         // Set layout manager to null for complete control over component positioning
         setLayout(null);
@@ -38,7 +38,7 @@ public class Withdrawal extends JFrame implements ActionListener {
         // Add text field for amount input
         amount = new JTextField();
         amount.setBounds(250, 360, 170, 30);
-        amount.setForeground(Color.WHITE);
+        amount.setForeground(Color.BLACK);
         amount.setFont(new Font("System", Font.BOLD, 16));
         backgroundImage.add(amount);
 
@@ -82,7 +82,7 @@ public class Withdrawal extends JFrame implements ActionListener {
                     c.s.executeUpdate(query);
 
                     // Show success message and switch to Transaction Window
-                    JOptionPane.showMessageDialog(null, "$ " + number + " was Withdrawn Successfully");
+                    JOptionPane.showMessageDialog(null, "$" + number + " was Withdrawn Successfully");
                     setVisible(false);
                     new Transactions(pinNo).setVisible(true);
                 }
