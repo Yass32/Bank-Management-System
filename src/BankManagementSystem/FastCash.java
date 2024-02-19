@@ -18,6 +18,7 @@ public class FastCash extends JFrame implements ActionListener {
         // Set layout manager to null for complete control over component positioning
         setLayout(null);
 
+        // Load and set background image
         ImageIcon image1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm.jpg"));
         Image image2 = image1.getImage().getScaledInstance(900, 900, Image.SCALE_DEFAULT);
         ImageIcon image3 = new ImageIcon(image2);
@@ -25,12 +26,14 @@ public class FastCash extends JFrame implements ActionListener {
         backgroundImage.setBounds(0, 0, 900, 900);
         add(backgroundImage);
 
+        // Add text label for user prompt
         JLabel text = new JLabel("Select Withdrawal Amount");
         text.setBounds(230, 300, 700, 35);
         text.setForeground(Color.WHITE);
         text.setFont(new Font("System", Font.BOLD, 16));
         backgroundImage.add(text);
 
+        // Add buttons for preset withdrawal amounts
         amount1 = new JButton("$20");
         amount1.setBounds(160, 415, 150, 30);
         amount1.addActionListener(this);
@@ -66,12 +69,10 @@ public class FastCash extends JFrame implements ActionListener {
         exit.addActionListener(this);
         backgroundImage.add(exit);
 
-
         //Set window size, visibility and size
         setSize(900, 900);
         setVisible(true);
         setLocation(300, 0);
-
     }
 
     // Handles button clicks and performs fast withdrawal operations.
@@ -81,12 +82,15 @@ public class FastCash extends JFrame implements ActionListener {
             setVisible(false);
             new Transactions(pinNo).setVisible(true);
         }
+
         // If the source is not the exit button, it assumes it's one of the fast cash buttons
         else {
-            //The withdrawal amount is extracted from the button text by removing the first character ("$").
+            // The withdrawal amount is extracted from the button text by removing the first character ("$").
             String amount = ((JButton)ae.getSource()).getText().substring(1);
+
             // Create a database connection
             Connect c = new Connect();
+
             try {
                 // Retrieve the user's transaction history from the database
                 ResultSet rs = c.s.executeQuery("SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ");
@@ -102,12 +106,13 @@ public class FastCash extends JFrame implements ActionListener {
                     }
                 }
 
-                //If the available balance is less than the requested withdrawal amount, an error message is shown, and the method exits
+                // If the available balance is less than the requested withdrawal amount, an error message is shown, and the method exits
                 if (ae.getSource() != exit && balance < Integer.parseInt(amount)) {
                     JOptionPane.showMessageDialog(null, "Insufficient Balance");
                     return;
                 }
 
+                // Get the current date and time
                 Date date = new Date();
 
                 // Construct the SQL query to insert the withdrawal transaction into the database
@@ -117,10 +122,12 @@ public class FastCash extends JFrame implements ActionListener {
 
                 JOptionPane.showMessageDialog(null, "$" + amount + " was successfully debited.");
 
+                // Hide the FastCash window and show the Transactions window
                 setVisible(false);
                 new Transactions(pinNo).setVisible(true);
             }
             catch (Exception e) {
+                // Handle any exceptions that occur during the database operations
                 System.out.println(e);
             }
         }

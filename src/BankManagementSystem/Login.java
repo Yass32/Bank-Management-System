@@ -127,6 +127,8 @@ public class Login extends JFrame implements ActionListener {
             String query = "SELECT * FROM login WHERE cardNumber = '"+cardNo+"' AND pinNumber = '"+pinNo+"'";
 
             try {
+                // It checks if the ResultSet (rs) contains any rows using the next() method.
+                // If there is at least one row, it means the login credentials are valid.
                 ResultSet rs = c.s.executeQuery(query);
                 if (rs.next()) {
                     setVisible(false);
@@ -143,7 +145,6 @@ public class Login extends JFrame implements ActionListener {
         else if (ae.getSource() == signup) {
             setVisible(false);
             new SignupOne().setVisible(true);
-
         }
 
     }
