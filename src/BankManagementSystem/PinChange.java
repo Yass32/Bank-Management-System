@@ -43,7 +43,7 @@ public class PinChange extends JFrame implements ActionListener {
         pin1 = new JPasswordField();
         pin1.setBounds(320, 410, 170, 30);
         pin1.setForeground(Color.BLACK);
-        pin1.setFont(new Font("System", Font.BOLD, 16));
+        pin1.setFont(new Font("Rale way", Font.BOLD, 25));
         backgroundImage.add(pin1);
 
         // Add text label for user prompt
@@ -57,7 +57,7 @@ public class PinChange extends JFrame implements ActionListener {
         pin2 = new JPasswordField();
         pin2.setBounds(320, 360, 170, 30);
         pin2.setForeground(Color.BLACK);
-        pin2.setFont(new Font("System", Font.BOLD, 16));
+        pin2.setFont(new Font("Rale way", Font.BOLD, 25));
         backgroundImage.add(pin2);
 
         // Add back button
