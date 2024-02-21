@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class BalanceEnquiry extends JFrame implements ActionListener {
     JButton exit;
-    String pinNo, balance;
+    String pinNo;
     BalanceEnquiry(String pinNo){
         this.pinNo = pinNo;
 
@@ -26,59 +26,52 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
         backgroundImage.setBounds(0, 0, 900, 900);
         add(backgroundImage);
 
+        // Create a database connection
+        Connect c = new Connect();
 
+        int balance = 0;
+
+        try {
+            // Retrieve the user's transaction history from the database
+            ResultSet rs = c.s.executeQuery("SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ");
+
+
+            // The user's current balance is calculated by iterating through the results and summing up deposits and subtracting withdrawals
+            while (rs.next()) {
+                if (rs.getString("type").equals("Deposit")) {
+                    balance += Integer.parseInt(rs.getString("amount"));
+                }
+                else {
+                    balance -= Integer.parseInt(rs.getString("amount"));
+                }
+            }
+        }
+        catch (Exception e) {
+            // Handle any exceptions that occur during the database operations
+            System.out.println(e);
+        }
 
         // Add text label for user prompt
         JLabel text = new JLabel("Your current balance is $ " + balance);
-        text.setBounds(240, 300, 700, 35);
+        text.setBounds(220, 300, 700, 35);
         text.setForeground(Color.WHITE);
         text.setFont(new Font("System", Font.BOLD, 16));
         backgroundImage.add(text);
 
         exit = new JButton("<- Back");
         exit.setBounds(362, 520, 150, 30);
-        //exit.addActionListener(this);
+        exit.addActionListener(this);
         backgroundImage.add(exit);
 
         // Set window size, visibility, and position
         setSize(900, 900);
         setVisible(true);
         setLocation(300, 0);
-
-
-
     }
 
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == exit) {
-            setVisible(false);
-            new Transactions(pinNo).setVisible(true);
-        }
-        else {
-            // Create a database connection
-            Connect c = new Connect();
-
-            try {
-                // Retrieve the user's transaction history from the database
-                ResultSet rs = c.s.executeQuery("SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ");
-                int balance = 0;
-
-                // The user's current balance is calculated by iterating through the results and summing up deposits and subtracting withdrawals
-                while (rs.next()) {
-                    if (rs.getString("type").equals("Deposit")) {
-                        balance += Integer.parseInt(rs.getString("amount"));
-                    }
-                    else {
-                        balance -= Integer.parseInt(rs.getString("amount"));
-                    }
-                }
-            }
-            catch (Exception e) {
-                // Handle any exceptions that occur during the database operations
-                System.out.println(e);
-            }
-        }
-
+        setVisible(false);
+        new Transactions(pinNo).setVisible(true);
     }
 
     public static void main(String[] args) {
