@@ -2,6 +2,7 @@ package BankManagementSystem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.ResultSet;
 
 public class MiniStatement extends JFrame {
     String pinNo, card;
@@ -15,53 +16,73 @@ public class MiniStatement extends JFrame {
         setLayout(null);
 
         // Add text label for user prompt
-        JLabel text = new JLabel("Yazak Bank");
-        text.setBounds(220, 150, 700, 35);
-        text.setForeground(Color.WHITE);
-        text.setFont(new Font("System", Font.BOLD, 16));
+        JLabel text = new JLabel("African Bank");
+        text.setBounds(200, 20, 700, 35);
+        text.setBackground(Color.BLACK);
+        text.setFont(new Font("System", Font.BOLD, 20));
         add(text);
 
-        Connect c = new Connect();
+        // Add text label for user prompt
+        JLabel card = new JLabel();
+        card.setBounds(150, 50, 700, 35);
+        card.setBackground(Color.BLACK);
+        card.setFont(new Font("System", Font.BOLD, 14));
+        add(card);
+
+        // Add text label for user prompt
+        JLabel mini = new JLabel();
+        mini.setBounds(20, 140, 400, 200);
+        //mini.setBackground(Color.BLACK);
+        //mini.setFont(new Font("System", Font.BOLD, 14));
+        add(mini);
+
+        JLabel balance = new JLabel();
+        balance.setBounds(20, 400, 300, 20);
+        add(balance);
+
+
+
+
 
         try {
-            card = "SELECT cardNumber FROM login WHERE pinNumber = '"+pinNo+"' ";
-            c.s.executeQuery(card);
-
-            // Add text label for user prompt
-            JLabel text1 = new JLabel("Card Number: " + card.substring(0,4) + "XXXXXXXX" + card.substring(card.length()-4));
-            text1.setBounds(220, 320, 700, 35);
-            text1.setForeground(Color.WHITE);
-            text1.setFont(new Font("System", Font.BOLD, 16));
-            add(text1);
-
-            // Retrieve the user's transaction history from the database
-            String query = "SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ORDER BY date DESC LIMIT 3 ";
-            c.s.executeQuery(query);
-
-            JLabel text2 = new JLabel(query);
-            text2.setBounds(220, 350, 700, 35);
-            text2.setForeground(Color.WHITE);
-            text2.setFont(new Font("System", Font.BOLD, 16));
-            add(text2);
-
-
-
+            Connect c = new Connect();
+            //int balance = 0;
+            String query = "SELECT * FROM login WHERE pinNumber = '"+pinNo+"' ";
+            ResultSet rs = c.s.executeQuery(query);
+            while (rs.next()) {
+                card.setText("Card Number: " + rs.getString("cardNumber").substring(0, 4) + "XXXXXXXX" + rs.getString("cardNumber").substring(12));
+            }
         }
         catch (Exception e) {
             System.out.println(e);
         }
 
-        // Add text label for user prompt
-        JLabel text1 = new JLabel("Yazak Bank");
-        text.setBounds(220, 300, 700, 35);
-        text.setForeground(Color.WHITE);
-        text.setFont(new Font("System", Font.BOLD, 16));
-        add(text);
+        try {
+            Connect c = new Connect();
+            int bal = 0;
+            String query = "SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ";
+            ResultSet rs = c.s.executeQuery(query);
+            while (rs.next()) {
+                mini.setText(mini.getText() + "<html>" + rs.getString("date") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("amount") + "<br><br></html>");
+                if (rs.getString("type").equals("Deposit")) {
+                    bal += Integer.parseInt(rs.getString("amount"));
+                }
+                else {
+                    bal -= Integer.parseInt(rs.getString("amount"));
+                }
+            }
+            balance.setText("Your current account balance is $ " + bal);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        mini.setBounds(20, 140, 400, 200);
 
 
         getContentPane().setBackground(new Color(243,241,241));
         setSize(500, 700);
-        setLocation(350, 10);
+        setLocation(200, 10);
         setVisible(true);
     }
     public static void main(String[] args) {
