@@ -63,7 +63,7 @@ public class MiniStatement extends JFrame {
             String query = "SELECT * FROM bank WHERE pinNumber = '"+pinNo+"' ";
             ResultSet rs = c.s.executeQuery(query);
             while (rs.next()) {
-                mini.setText(mini.getText() + "<html>" + rs.getString("date") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("amount") + "<br><br></html>");
+                mini.setText(mini.getText() + "<html>" + rs.getString("date") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("amount") + "<br><br><html>");
                 if (rs.getString("type").equals("Deposit")) {
                     bal += Integer.parseInt(rs.getString("amount"));
                 }
